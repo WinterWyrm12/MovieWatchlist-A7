@@ -5,8 +5,11 @@ import Favorites from './pages/Favorites';
 import './App.css';
 import { searchMovies } from './services/movieService';
 import { useState } from 'react';
+import WantToWatch from './pages/wantToWatch';
+import { WatchlistProvider } from './contexts/MovieContext';
 
 
+// search
 function App() {
   // search state
   const [searchResults, setSearchResults] = useState([]);
@@ -17,16 +20,20 @@ function App() {
   };
 
 
+
   return (
-    <Router>
-      <div className="app">
-        <Header onSearch={handleSearch} />
-        <Routes>
-          <Route path="/" element={<Home searchResults={searchResults} />} />
-          <Route path="/favorites" element={<Favorites />} />
-        </Routes>
-      </div>
-    </Router>
+    <WatchlistProvider> {/* Everyhing inside of WatchlistProvider can access the watchlist contetnt */}
+      <Router>
+        <div className="app">
+          <Header onSearch={handleSearch} />
+          <Routes>
+            <Route path="/" element={<Home searchResults={searchResults} />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/wanttowatch" element={<WantToWatch />}/>
+          </Routes>
+        </div>
+      </Router>
+    </WatchlistProvider>
   );
 };
 
